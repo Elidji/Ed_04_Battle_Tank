@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "../Public/TankAimingComponent.h"
+#include "../Public/TankBarrel.h"
 
 
 // Sets default values for this component's properties
@@ -14,7 +15,7 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToASet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToASet)
 {
 	Barrel = BarrelToASet;
 }
@@ -54,5 +55,5 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotate = AimAsRotator - BarrelRotation;
 
-
+	Barrel->Elevate(5);
 }
