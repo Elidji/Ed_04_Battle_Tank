@@ -10,16 +10,12 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	
 }
-
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToASet)
 {
 	Barrel = BarrelToASet;
 }
-
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
@@ -30,12 +26,17 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	// our direction to fire
 	FVector LaunchVelocity;
 	TArray<AActor*> ActorList;
+	// must include these parameters, otherwise will break -- bug in code. Issue is it shows everything after launch speed as 
+	// optional, but that will break it. 
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
 		this,            // just a reference to our tank aim component
 		LaunchVelocity,  // pass by reference to get aim direction
 		BarrelLocation,  // start
 		HitLocation,     // end
 		LaunchSpeed,     // speed
+		false,			 // don't use high arc
+		0,               // no collision radius
+		0,               // no gravity
 		ESuggestProjVelocityTraceOption::DoNotTrace   // don't trace along path for interferring objects
 	);
 
