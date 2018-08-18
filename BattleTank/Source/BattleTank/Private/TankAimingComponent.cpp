@@ -44,7 +44,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		false,			 // don't use high arc
 		0,               // no collision radius
 		0,               // no gravity
-		ESuggestProjVelocityTraceOption::DoNotTrace   // don't trace along path for interferring objects
+		ESuggestProjVelocityTraceOption::DoNotTrace   // don't trace along path for interfering objects
 	);
 
 	if (bHaveAimSolution)
