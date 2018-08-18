@@ -21,7 +21,6 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToASet)
 void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
 {
 	Turret = TurretToSet;
-	UE_LOG(LogTemp, Warning, TEXT("Set Turret %s"), *Turret->GetName());
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -54,8 +53,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto AimDirection = LaunchVelocity.GetSafeNormal();
 		// move the barrel
 		MoveBarrel(AimDirection);
-		// move the turret
-		MoveTurret(AimDirection);
 	}
 }
 
