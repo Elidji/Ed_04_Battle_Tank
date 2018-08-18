@@ -2,6 +2,7 @@
 
 #include "../Public/TankAimingComponent.h"
 #include "../Public/TankBarrel.h"
+#include "../Public/TankTurret.h"
 
 
 // Sets default values for this component's properties
@@ -17,9 +18,16 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToASet)
 	Barrel = BarrelToASet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	Turret = TurretToSet;
+	UE_LOG(LogTemp, Warning, TEXT("Set Turret %s"), *Turret->GetName());
+}
+
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) { return; }
+	// make sure we have a barrel and turret
+	if (!Barrel || !Turret) { return; }
 
 	// grab the socket location from the barrel, placed at end of barrel in unreal
 	auto BarrelLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -46,6 +54,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto AimDirection = LaunchVelocity.GetSafeNormal();
 		// move the barrel
 		MoveBarrel(AimDirection);
+		// move the turret
+		MoveTurret(AimDirection);
 	}
 }
 
@@ -55,6 +65,8 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotate = AimAsRotator - BarrelRotation;
-
+	// Raise or lower barrel to aim direction
 	Barrel->Elevate(DeltaRotate.Pitch);
+	// Rotate turret towards aim direction
+	Turret->Rotate(DeltaRotate.Yaw);
 }
