@@ -7,7 +7,7 @@
 #include "TankBarrel.generated.h"
 
 /**
- * 
+ Tank Barrel is used to move barrel
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
