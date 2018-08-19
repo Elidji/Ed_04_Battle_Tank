@@ -43,14 +43,20 @@ protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 private:
+	// just allow this change in blueprint, ie default base, not instances
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBP;
+
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 4000; // 1000 m/s
-
-	UPROPERTY(EditAnywhere, Category = Setup)
-		TSubclassOf<AProjectile> ProjectileBP;
+	UPROPERTY(EditAnywhere, Category = Firing)
+		float ReloadTimeInSeconds = 3;
 
 	// Local reference for projectile
 	UTankBarrel* Barrel = nullptr;
+
+	// last time fired in seconds
+	double LastFireTime = 0;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

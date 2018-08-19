@@ -21,16 +21,12 @@ public:
 	// Called every frame - where aim at player happens
 	virtual void Tick(float) override;
 
-	ATank* GetAITank() const;
-
 protected:
 
 	virtual void BeginPlay() override;
 
 private:
 
-	ATank * GetPlayerTank() const;
-	
 	ATank *PlayerTank = nullptr;
 
 	ATank *AITank = nullptr;
