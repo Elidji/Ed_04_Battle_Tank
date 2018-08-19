@@ -10,6 +10,7 @@ class UTankBarrel;
 class UTankAimingComponent;
 class UTankTurret;
 class AProjectile;
+class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -40,7 +41,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	// components added to blueprints when this class is created - in constructor
+	
+	// for aiming the barrel and moving turret
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	// for fly by wire control
+	UPROPERTY(BlueprintReadOnly, Category=Input)
+	UTankMovementComponent* TankMovingComponent = nullptr;
 
 private:
 	// just allow this change in blueprint, ie default base, not instances

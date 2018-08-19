@@ -3,6 +3,7 @@
 #include "../Public/Tank.h"
 #include "../Public/TankBarrel.h"
 #include "../Public/TankAimingComponent.h"
+#include "../Public/TankMovementComponent.h"
 #include "../Public/Projectile.h"
 
 // Sets default values
@@ -13,6 +14,7 @@ ATank::ATank()
 
 	// No need to protect since created at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	TankMovingComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
 // called from blueprint
