@@ -30,11 +30,11 @@ public:
 
 	// called from blueprints, passes the turret
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret* TurretToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 	// called from blueprints to fire
 	UFUNCTION(BlueprintCallable, Category = Actions)
-		void Fire();
+	void Fire();
 
 protected:
 	// Called when the game starts or when spawned
@@ -52,12 +52,12 @@ protected:
 private:
 	// just allow this change in blueprint, ie default base, not instances
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		TSubclassOf<AProjectile> ProjectileBP;
+	TSubclassOf<AProjectile> ProjectileBP;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 4000; // 1000 m/s
+	float LaunchSpeed = 4000; // 1000 m/s
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float ReloadTimeInSeconds = 3;
+	float ReloadTimeInSeconds = 3;
 
 	// Local reference for projectile
 	UTankBarrel* Barrel = nullptr;
