@@ -13,20 +13,16 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToASet)
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	Barrel = BarrelToASet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
-{
+	Barrel = BarrelToSet;
 	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	// make sure we have a barrel and turret
-	if (!Barrel || !Turret) { return; }
+	if (!ensure(Barrel || Turret)) { return; }
 
 	// grab the socket location from the barrel, placed at end of barrel in unreal
 	auto BarrelLocation = Barrel->GetSocketLocation(FName("Projectile"));

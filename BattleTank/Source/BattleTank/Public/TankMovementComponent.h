@@ -20,13 +20,13 @@ public:
 
 	// used to set the tracks of the tank
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-		void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
+	void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
 	// used in input binding
 	UFUNCTION(BlueprintCallable, Category = "Input")
-		void IntendMoveForward(float Throw);
+	void IntendMoveForward(float Throw);
 	UFUNCTION(BlueprintCallable, Category = "Input")
-		void IntendTurnRight(float Throw);
+	void IntendTurnRight(float Throw);
 
 private:
 	UTankTrack * LeftTrack = nullptr;

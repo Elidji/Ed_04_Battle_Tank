@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Red Wagon
 
 #pragma once
 
@@ -7,8 +7,10 @@
 #include "TankPlayerController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
+
 /**
- * 
+ Responsible for helping player aim
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -20,11 +22,16 @@ public:
 	// where aim at occurs - calls supporting functions below
 	virtual void Tick(float) override;
 
-	ATank * GetControlledTank() const;
-
 protected:
 
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank * GetControlledTank() const;
+
+	// don't actually have to implement due to the macro
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
 
