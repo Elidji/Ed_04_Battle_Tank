@@ -2,22 +2,16 @@
 
 #include "../Public/TankPlayerController.h"
 #include "../Public/TankAimingComponent.h"
-#include "../Public/Tank.h"
 #include "DrawDebugHelpers.h"
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	// look through tank to grab an aiming component if attached
-	UTankAimingComponent* AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (AimingComponent)
-	{
-		FoundAimingComponent(AimingComponent);
-	}
-	else
-	{
-		UE_LOG(LogTemp,Warning,TEXT("Player controller can't find aiming component in Begin Play"))
-	}
+	// look through tank to grab an aiming component if attached - note tank is just a pawn, 
+	// that's why we don't need to specifically grab the tank
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	// make sure component found before reporting its found
+	if (ensure(AimingComponent)) { FoundAimingComponent(AimingComponent); }
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -26,20 +20,18 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-ATank * ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
+	// look through tank to grab an aiming component if attached - note tank is just a pawn, 
+	// that's why we don't need to specifically grab the tank
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(AimingComponent)) { FoundAimingComponent(AimingComponent); }
 	
 	FVector HitLocation;
 	// check if we hit the landscape - passing by reference
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 }
 

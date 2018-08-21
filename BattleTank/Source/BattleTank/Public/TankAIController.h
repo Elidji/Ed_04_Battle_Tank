@@ -27,10 +27,6 @@ protected:
 
 private:
 
-	ATank *PlayerTank = nullptr;
-
-	ATank *AITank = nullptr;
-
 	// How close can AI tank get to player, in cm
 	float AcceptanceRadius = 3000;
 };

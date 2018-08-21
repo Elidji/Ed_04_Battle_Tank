@@ -1,32 +1,31 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "../Public/TankAIController.h"
-#include "../Public/Tank.h"
+#include "../Public/TankAimingComponent.h"
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	AITank = Cast<ATank>(GetPawn());
-	// Could also do GetWorld()->GetFirstPlayerController, this is more generalized
-	// Note this returns a nullptr if doesn't exist, so don't need to do a check and return a nullptr
-	PlayerTank = Cast<ATank>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn());
-
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (ensure(PlayerTank))
-	{
-		// move towards player
-		MoveToActor(PlayerTank, AcceptanceRadius);
+	// Could also do GetWorld()->GetFirstPlayerController, this is more generalized
+	// Note tank is a pawn, so we can keep this generalized, no need to cast as a tank
+	APawn* PlayerTank = UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn();
+	// get the AI tanks aiming component
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 
-		// aim at player
-		AITank->AimAt(PlayerTank->GetActorLocation());
+	if (!ensure(PlayerTank && AimingComponent)) { return; }
 
-		// fire at player
-		AITank->Fire();
-	}
+	// move towards player
+	MoveToActor(PlayerTank, AcceptanceRadius);
+
+	// aim at player
+	AimingComponent->AimAt(PlayerTank->GetActorLocation());
+
+	// fire at player
+	//ThisAITank->Fire();
 }

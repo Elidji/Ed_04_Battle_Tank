@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -25,9 +24,6 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank * GetControlledTank() const;
 
 	// don't actually have to implement due to the macro
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
