@@ -2,7 +2,6 @@
 
 #include "../Public/TankPlayerController.h"
 #include "../Public/TankAimingComponent.h"
-#include "DrawDebugHelpers.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -48,7 +47,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	bHit = GetHitResultAtScreenPosition(CrosshairPosition, ECollisionChannel::ECC_Visibility, false, HitResult);
 	if (bHit) {HitLocation = HitResult.ImpactPoint;}
 
-	// Draws a red line for debugging purposes
+	// Draws a red line for debugging purposes - #include "DrawDebugHelpers.h"
 	// DrawDebugLine(GetWorld(), HitResult.TraceStart, HitResult.TraceEnd, FColor::Red);
 
 	return bHit;
