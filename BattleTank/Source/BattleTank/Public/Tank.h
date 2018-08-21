@@ -10,7 +10,6 @@ class UTankBarrel;
 class UTankAimingComponent;
 class UTankTurret;
 class AProjectile;
-class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -33,9 +32,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = Input)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	// for fly by wire control
-	UPROPERTY(BlueprintReadOnly, Category=Input)
-	UTankMovementComponent* TankMovingComponent = nullptr;
+	void BeginPlay() override;
 
 private:
 	// just allow this change in blueprint, ie default base, not instances
