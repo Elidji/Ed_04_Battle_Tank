@@ -23,6 +23,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	// look through tank to grab an aiming component if attached - note tank is just a pawn, 
 	// that's why we don't need to specifically grab the tank
+	if (!GetPawn()) { return; } // not possessed - ie open blueprint, or die in game
 	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent)) { FoundAimingComponent(AimingComponent); }
 	

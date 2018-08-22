@@ -39,23 +39,32 @@ public:
 	// aim the barrel and turret
 	void AimAt(FVector HitLocation);
 
+	EFiringStatus GetFiringState() const;
+
 	// called from blueprints to fire
 	UFUNCTION(BlueprintCallable, Category = Actions)
 	void Fire();
 
 protected:
 
+	void BeginPlay() override;
+
 	// Used by the player UI blueprint to color the cross hair according to firing state
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringStatus FiringStatus = EFiringStatus::Aiming;
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 
 private:
 
 	// tells the barrel and turret how much to move
-	void MoveBarrel(FVector AimDirection);
+	void MoveBarrel();
+
+	bool IsBarrelMoving();
+
+	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	UTankBarrel * Barrel = nullptr;
 	UTankTurret * Turret = nullptr;
+	FVector AimDirection;
 
 	// just allow this change in blueprint, ie default base, not instances
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
