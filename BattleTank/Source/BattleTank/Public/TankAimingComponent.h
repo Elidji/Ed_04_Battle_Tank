@@ -80,7 +80,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LaunchSpeed = 4000; // 1000 m/s
 
-	double LastFireTime = 0;  // last time fired in seconds
-
+	UPROPERTY(EditAnywhere, Category = "Firing")
 	int32 AmmoAmount = 3;
+
+	double LastFireTime = 0;  // last time fired in seconds
 };
