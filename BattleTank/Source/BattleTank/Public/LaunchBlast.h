@@ -13,8 +13,6 @@ UCLASS()
 class BATTLETANK_API ULaunchBlast : public UParticleSystemComponent
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
+
 };
