@@ -2,10 +2,24 @@
 
 #include "../Public/TankAIController.h"
 #include "../Public/TankAimingComponent.h"
+#include "../Public/Tank.h" // so we can implement OnDeath
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ATankAIController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)){ return; }
+
+		// subscribe  our local method to the tank
+	}
 }
 
 void ATankAIController::Tick(float DeltaTime)

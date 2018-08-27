@@ -30,4 +30,7 @@ protected:
 	float AcceptanceRadius = 80000.0;
 
 private:
+
+	// when AI tank possessed this called
+	virtual void SetPawn(APawn* InPawn) override;
 };
