@@ -2,6 +2,7 @@
 
 #include "../Public/TankPlayerController.h"
 #include "../Public/TankAimingComponent.h"
+#include "../Public/Tank.h" // so we can use delegate for tank death
 
 void ATankPlayerController::BeginPlay()
 {
@@ -17,6 +18,26 @@ void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
+}
+
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn)
+	{
+		// do here, may not yet have possessed pawn in begin play
+		ATank* PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		// subscribe  our local method to the tank
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+	}
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("player tank died."));
 }
 
 void ATankPlayerController::AimTowardsCrosshair()

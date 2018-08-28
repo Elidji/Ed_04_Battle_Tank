@@ -15,11 +15,20 @@ void ATankAIController::SetPawn(APawn* InPawn)
 
 	if (InPawn)
 	{
-		auto PossessedTank = Cast<ATank>(InPawn);
+		// do here, may not yet have possessed pawn in begin play
+		ATank* PossessedTank = Cast<ATank>(InPawn);
 		if (!ensure(PossessedTank)){ return; }
 
 		// subscribe  our local method to the tank
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
 	}
+}
+
+void ATankAIController::OnTankDeath()
+{
+	if (!GetPawn()) { return; }
+
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
 
 void ATankAIController::Tick(float DeltaTime)

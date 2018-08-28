@@ -9,6 +9,13 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;  // doesn't tick
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	// set in case change din blueprint
+	CurrentHealth = StartHealth;
+}
+
 float ATank::GetHealthPercent() const
 {
 	return (float)CurrentHealth / (float)StartHealth;
@@ -19,5 +26,8 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const &DamageEvent, ACo
 	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
 	int32 DamageToApply = FMath::Clamp(DamagePoints, 0, CurrentHealth);
 	CurrentHealth -= DamageToApply;
+
+	if (CurrentHealth <= 0) { OnDeath.Broadcast(); }
+
 	return DamageToApply;
 }

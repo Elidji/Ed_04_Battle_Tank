@@ -33,4 +33,7 @@ private:
 
 	// when AI tank possessed this called
 	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
 };

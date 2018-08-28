@@ -39,4 +39,10 @@ private:
 	// check if crosshair over landscape, and return true 
 	// if yes, false if no. Also set location in the out parameter fvector
 	bool GetSightRayHitLocation(FVector &) const;
+
+	// when tank possessed this called
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
 };
