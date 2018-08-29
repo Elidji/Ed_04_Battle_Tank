@@ -41,7 +41,7 @@ void ATankAIController::Tick(float DeltaTime)
 	// get the AI tanks aiming component
 	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 
-	if (!ensure(PlayerTank && AimingComponent)) { return; }
+	if (!(PlayerTank && AimingComponent)) { return; }
 
 	// move towards player
 	MoveToActor(PlayerTank, AcceptanceRadius);
