@@ -37,7 +37,9 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 
 void ATankPlayerController::OnTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("player tank died."));
+	if (!GetPawn()) { return; }
+
+	StartSpectatingOnly();
 }
 
 void ATankPlayerController::AimTowardsCrosshair()
@@ -66,7 +68,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	FHitResult HitResult;
 	bool bHit;
 	// this does the de-projection and gets the 3d position. Note: no distance limit to the ray cast it does, 
-	bHit = GetHitResultAtScreenPosition(CrosshairPosition, ECollisionChannel::ECC_Visibility, false, HitResult);
+	// Note using ECC_Camera instead of ECC_Visibility makes sure UI elements aren't considered.
+	bHit = GetHitResultAtScreenPosition(CrosshairPosition, ECollisionChannel::ECC_Camera, false, HitResult);
 	if (bHit) {HitLocation = HitResult.ImpactPoint;}
 
 	// Draws a red line for debugging purposes - #include "DrawDebugHelpers.h"

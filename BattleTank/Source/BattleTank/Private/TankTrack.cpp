@@ -9,6 +9,7 @@ UTankTrack::UTankTrack()
 
 void UTankTrack::BeginPlay()
 {
+	Super::BeginPlay();
 	// register delegate - called every frame that has a hit, so every frame since always contacting ground
 	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
 }
