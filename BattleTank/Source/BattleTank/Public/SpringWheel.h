@@ -26,12 +26,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	void SetupConstraints();
+
 	// components
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
-	UPhysicsConstraintComponent * SpringConstraint = nullptr;
-
-	UPROPERTY(VisibleAnywhere, Category = "Setup")
-	UStaticMeshComponent* Mass = nullptr;
+	UPhysicsConstraintComponent * MassConstraint = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
 	UStaticMeshComponent* Wheel = nullptr;
