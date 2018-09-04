@@ -32,6 +32,11 @@ void ASpringWheel::BeginPlay()
 	SetupConstraints();
 }
 
+void ASpringWheel::AddDrivingForce(float force)
+{
+	Wheel->AddForce(Axle->GetForwardVector() * force);
+}
+
 void ASpringWheel::SetupConstraints()
 {
 	if (!GetAttachParentActor()) { return; }
